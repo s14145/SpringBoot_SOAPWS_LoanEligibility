@@ -22,9 +22,11 @@ public class LoanEligibilityService {
 		
 		if(!(request.getAge() > 30 && request.getAge() <=60)) {
 			mismatchCriteriaList.add("Person age should be in between 30 to 60");
-		}else if(!(request.getYearlyIncome() > 200000)) {
+		}
+		if(!(request.getYearlyIncome() > 200000)) {
 			mismatchCriteriaList.add("Minimum yearly incomee has to be more than Rs. 2,00,000");
-		}else if(!(request.getCibilScore() > 500)) {
+		}
+		if(!(request.getCibilScore() > 500)) {
 			mismatchCriteriaList.add("Low CIBIL Score, pleases try after 6 months");
 		}
 		
