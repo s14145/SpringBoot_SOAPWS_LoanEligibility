@@ -1,0 +1,14 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+				  xmlns:le="http://www.springboot.com/soapws/loaneligibility">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <le:CustomerRequest>
+            <le:customerName>John</le:customerName>
+            <le:age>35</le:age>
+            <le:yearlyIncome>300000</le:yearlyIncome>
+            <le:requestAmount>500000</le:requestAmount>
+            <le:cibilScore>600</le:cibilScore>
+            <le:employeeMode>GOVT</le:employeeMode>
+        </le:CustomerRequest>
+    </soapenv:Body>
+</soapenv:Envelope>		  
