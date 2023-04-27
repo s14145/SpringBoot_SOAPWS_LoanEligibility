@@ -10,15 +10,28 @@ Output Parameter - Acknowledgement
 
 This application can be tested using POSTMAN API tool by hitting below endpoint and SOAP request XML file.
 
-Endpoint: http://localhost:8080/ws/loanEligibility
+WSDL URI: http://localhost:8080/ws/loanEligibility.wsdl
+
+SOAP Endpoint: http://localhost:8080/ws/loanEligibility
+
+
+If you are using POSTMAN tool then in Headers section set "Content-Type = text/xml" and submit POST request:
 
 **Request.xml**
 
+**Note: This SOAP webservice has been implemented using WS Security with Authentication specification so SOAP request requires username and password.**
 
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 				  xmlns:le="http://www.springboot.com/soapws/loaneligibility">   
           
-     <soapenv:Header/>
+     <soapenv:Header>
+       <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+        <wsse:UsernameToken>
+            <wsse:Username>user</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">password</wsse:Password>
+        </wsse:UsernameToken>
+       </wsse:Security>
+    </soapenv:Header>
        <soapenv:Body>
         <le:CustomerRequest>
             <le:customerName>John</le:customerName>
