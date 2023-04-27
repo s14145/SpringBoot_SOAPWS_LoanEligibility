@@ -25,41 +25,40 @@ import org.springframework.xml.xsd.XsdSchema;
 
 import com.springboot.soapws.exception.SOAPServiceFaultException;
 
-
 @Configuration
 @EnableWs
 public class LoanEligibilityConfig extends WsConfigurerAdapter {
-	
+
 	private static final String NAMESPACE_URI = "http://www.springboot.com/soapws/loaneligibility";
-	
-	@Bean
-    public SoapFaultMappingExceptionResolver exceptionResolver(){
-        SoapFaultMappingExceptionResolver exceptionResolver = new SoapFaultMappingExceptionResolver();
 
-        SoapFaultDefinition faultDefinition = new SoapFaultDefinition();
-        faultDefinition.setFaultCode(SoapFaultDefinition.SERVER);
-        faultDefinition.setFaultStringOrReason("default fault message");
-        exceptionResolver.setDefaultFault(faultDefinition);
-
-        Properties errorMappings = new Properties();
-        errorMappings.setProperty(Exception.class.getName(), SoapFaultDefinition.SERVER.toString());
-        errorMappings.setProperty(SOAPServiceFaultException.class.getName(), SoapFaultDefinition.SERVER.toString());
-        exceptionResolver.setExceptionMappings(errorMappings);
-        exceptionResolver.setOrder(1);
-        return exceptionResolver;
-    }
-	
 	@Bean
-	public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(ApplicationContext context){
-		
+	public SoapFaultMappingExceptionResolver exceptionResolver() {
+		SoapFaultMappingExceptionResolver exceptionResolver = new SoapFaultMappingExceptionResolver();
+
+		SoapFaultDefinition faultDefinition = new SoapFaultDefinition();
+		faultDefinition.setFaultCode(SoapFaultDefinition.SERVER);
+		faultDefinition.setFaultStringOrReason("default fault message");
+		exceptionResolver.setDefaultFault(faultDefinition);
+
+		Properties errorMappings = new Properties();
+		errorMappings.setProperty(Exception.class.getName(), SoapFaultDefinition.SERVER.toString());
+		errorMappings.setProperty(SOAPServiceFaultException.class.getName(), SoapFaultDefinition.SERVER.toString());
+		exceptionResolver.setExceptionMappings(errorMappings);
+		exceptionResolver.setOrder(1);
+		return exceptionResolver;
+	}
+
+	@Bean
+	public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(ApplicationContext context) {
+
 		MessageDispatcherServlet servlet = new MessageDispatcherServlet();
 		servlet.setApplicationContext(context);
 		servlet.setTransformWsdlLocations(true);
-		return new ServletRegistrationBean<MessageDispatcherServlet>(servlet,"/ws/*");
-		
+		return new ServletRegistrationBean<MessageDispatcherServlet>(servlet, "/ws/*");
+
 	}
-	
-	@Bean(name="loanEligibility")
+
+	@Bean(name = "loanEligibility")
 	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema schema) {
 		DefaultWsdl11Definition defaultWsdl11Definition = new DefaultWsdl11Definition();
 		defaultWsdl11Definition.setPortTypeName("LoanEligibilityEndpoint");
@@ -68,14 +67,15 @@ public class LoanEligibilityConfig extends WsConfigurerAdapter {
 		defaultWsdl11Definition.setSchema(schema);
 		return defaultWsdl11Definition;
 	}
-	
+
 	@Bean
-	public XsdSchema schema(){
+	public XsdSchema schema() {
 		return new SimpleXsdSchema(new ClassPathResource("loaneligibility.xsd"));
 	}
-	
-	// Configure XwsSecurtyInterceptor - Intercepts all SOAP web services incoming request. Add this to list of existing interceptor
-	// create Callback Handler -> SimplePasswordValidationCallbackHanlder 
+
+	// Configure XwsSecurtyInterceptor - Intercepts all SOAP web services incoming
+	// request. Add this to list of existing interceptor
+	// create Callback Handler -> SimplePasswordValidationCallbackHanlder
 	// Security Policy -> securityPolicy.xml
 	@Bean
 	public XwsSecurityInterceptor securityInterceptor() {
@@ -83,9 +83,9 @@ public class LoanEligibilityConfig extends WsConfigurerAdapter {
 		xwsSecurityInterceptor.setCallbackHandler(callbackHandler());
 		xwsSecurityInterceptor.setPolicyConfiguration(new ClassPathResource("securityPolicy.xml"));
 		return xwsSecurityInterceptor;
-		
+
 	}
-	
+
 	@Bean
 	public SimplePasswordValidationCallbackHandler callbackHandler() {
 		SimplePasswordValidationCallbackHandler handler = new SimplePasswordValidationCallbackHandler();
@@ -97,8 +97,5 @@ public class LoanEligibilityConfig extends WsConfigurerAdapter {
 	public void addInterceptors(List<EndpointInterceptor> interceptors) {
 		interceptors.add(securityInterceptor());
 	}
-	
-	
-	
 
 }
