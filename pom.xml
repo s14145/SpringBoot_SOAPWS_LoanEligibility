@@ -92,6 +92,8 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			
+			<!-- Jacoco Plugin -->
+			
 			<plugin>
     			<groupId>org.jacoco</groupId>
     			<artifactId>jacoco-maven-plugin</artifactId>
@@ -132,6 +134,7 @@
     		</executions>
 			</plugin>
 			
+			<!-- JAXB plugin to generate binding class from xsd file -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jaxb2-maven-plugin</artifactId>
