@@ -2,7 +2,7 @@
 
 It has been created using Contract First (WSDL -> Java Class) web service approach.
 XSD (XML Schema Defintion) file for this application is "loanEligibility.xsd" which can be found in classpath resource.
-The application starts at port 8080 and the endpoint is "http://localhost:8080/ws/loanEligibility.wsdl"
+The application starts at port 9090 and the endpoint is "http://localhost:9090/ws/loanEligibility.wsdl"
 
 Input Parameter - Customer Request
 
@@ -10,9 +10,9 @@ Output Parameter - Acknowledgement
 
 This application can be tested using POSTMAN API tool by hitting below endpoint and SOAP request XML file.
 
-WSDL URI: http://localhost:8080/ws/loanEligibility.wsdl
+WSDL URI: http://localhost:9090/ws/loanEligibility.wsdl
 
-SOAP Endpoint: http://localhost:8080/ws/loanEligibility
+SOAP Endpoint: http://localhost:9090/ws/loanEligibility
 
 
 If you are using POSTMAN tool then in Headers section set "Content-Type = text/xml" and submit POST request:
